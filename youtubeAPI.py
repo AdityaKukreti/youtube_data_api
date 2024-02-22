@@ -9,6 +9,9 @@ class YoutubeAPI:
         self.youtube = build('youtube', 'v3', developerKey=self.api_key)
         self.query = ""
     
+
+    def statistics(Self, id):
+        pass
     def search(self):
         request = self.youtube.search().list(
             q = self.query,
@@ -16,15 +19,23 @@ class YoutubeAPI:
             maxResults = 10
         )
         response = request.execute()
-        vidNo = 1
-        result = {}
-        for i in response['items']:
-            content = {}
+        for i in response.get('items'):
             if (i['id']['kind'] == "youtube#video"):
-                for j in i:
-                    if (j == 'snippet' or j == "id"):
-                        content[j] = i[j]
-                result[vidNo] = content
-                vidNo += 1
+                print(i['id']['videoId'])
+                print('\n\n')
+        # vidNo = 1
+        # result = {}
+        # for i in response['items']:
+        #     content = {}
+        #     if (i['id']['kind'] == "youtube#video"):
+        #         for j in i:
+        #             if (j == 'snippet' or j == "id"):
+        #                 content[j] = i[j]
+        #         result[vidNo] = content
+        #         vidNo += 1
 
-        return result
+        # return result
+
+api = YoutubeAPI()
+api.query = "c++"
+api.search()
