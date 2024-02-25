@@ -17,6 +17,7 @@ class YoutubeAPI:
         )
         response = request.execute()
         if response.get('items'):
+            print(response['items'][0])
             thumbnail_url = response['items'][0]['snippet']['thumbnails']['default']['url']
             return thumbnail_url
 
