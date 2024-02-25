@@ -74,6 +74,7 @@ class NotesGenerator:
 
         Provide a summary of the video content.
         Use proper headings and subheadings to organize the notes.
+        Add <h> and <s> before and after the heading and sub-headings respectively.
         Include necessary terms and concepts mentioned in the video.
         Translate any non-English content into English.
         Ensure the total character count does not exceed 16,000 characters.
