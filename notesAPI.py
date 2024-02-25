@@ -58,6 +58,7 @@ class NotesGenerator:
         self.client = OpenAI(api_key=os.environ['OPENAI_API_KEY'])
 
     def getTranscription(self):
+        self.transcription = ""
         for i in YouTubeTranscriptApi.get_transcript(self.videoId):
             self.transcription += i['text'] + ' '
         self.transcription.replace('\n',' ')
