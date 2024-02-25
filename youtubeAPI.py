@@ -50,6 +50,6 @@ class YoutubeAPI:
         print(result)
         return result
         
-api = YoutubeAPI()
-api.query = "abdul bari"
-api.search()
+# api = YoutubeAPI()
+# api.query = "abdul bari"
+# api.search()
