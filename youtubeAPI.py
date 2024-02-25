@@ -17,7 +17,6 @@ class YoutubeAPI:
         )
         response = request.execute()
         if response.get('items'):
-            print(response['items'][0])
             thumbnail_url = response['items'][0]['snippet']['thumbnails']['default']['url']
             return thumbnail_url
 
@@ -48,7 +47,6 @@ class YoutubeAPI:
                 
                 result[vidNo] = content
                 vidNo += 1
-        print(result)
         return result
         
 # api = YoutubeAPI()
