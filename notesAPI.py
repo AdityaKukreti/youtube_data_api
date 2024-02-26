@@ -75,7 +75,7 @@ class NotesGenerator:
         Provide a summary of the video content.
         Use proper headings and subheadings to organize the notes.
         Add <h> and <s> before and after the heading and sub-headings respectively.
-        Provide atleast 1 detailed example for each topic if required.
+        Provide atleast 1 detailed example for each topic.
         Provide a dall e prompt for generating diagrams for the given example.
         Include necessary terms and concepts mentioned in the video.
         Translate any non-English content into English.
