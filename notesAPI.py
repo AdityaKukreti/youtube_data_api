@@ -85,7 +85,7 @@ class NotesGenerator:
         Maintain clarity and coherence throughout the document.
         Use concise language and avoid unnecessary details.
         Pay attention to terminology and ensure accurate translations.
-        Aim for a balanced level of detail, avoiding both excessive brevity and verbosity.
+        Aim for a extreme level of detail.
         '''},
                 {"role": "user", "content": self.transcription}],
         stream=False,
