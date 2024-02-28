@@ -35,6 +35,7 @@ class NotesGenerator:
         Provide atleast 1 extremely detailed example for each topic.
         Include necessary terms and concepts mentioned in the video.
         Translate any non-English content into English.
+           Ensure the total character count does not exceed 16,000 characters.
      
         Additional Information:
 
