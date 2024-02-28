@@ -29,13 +29,13 @@ class NotesGenerator:
 
         Instructions:
 
-        Provide a summary of the video content.
+        Provide a detailed summary of the video content.
         Use proper headings and subheadings to organize the notes.
         Add <h> and <s> before and after the heading and sub-headings respectively.
-        Provide atleast 1 extra detailed example for each topic.
+        Provide atleast 1 extremely detailed example for each topic.
         Include necessary terms and concepts mentioned in the video.
         Translate any non-English content into English.
-        Ensure the total character count does not exceed 16,000 characters.
+     
         Additional Information:
 
         The notes should be comprehensive and cover all key points discussed in the video.
