@@ -31,7 +31,9 @@ class YoutubeAPI:
         request = self.youtube.search().list(
             q = self.query,
             part = 'snippet',
-            maxResults = 20
+            maxResults = 20,
+            type='video',
+            videoCategoryId = '27'
         )
         response = request.execute()
         result = {}
@@ -39,14 +41,14 @@ class YoutubeAPI:
         for i in response.get('items'):
            
             content = {}
-            if (i['id']['kind'] == "youtube#video"):
-                content['id'] = i['id']
-                content['snippet'] = i['snippet']
-                content['items'] = self.statistics(i['id']['videoId'])['items']
-                content['channel_thumbnail'] = self.get_channel_thumbnail(i['snippet']['channelId'])
-                
-                result[vidNo] = content
-                vidNo += 1
+            # if (i['id']['kind'] == "youtube#video"):
+            content['id'] = i['id']
+            content['snippet'] = i['snippet']
+            content['items'] = self.statistics(i['id']['videoId'])['items']
+            content['channel_thumbnail'] = self.get_channel_thumbnail(i['snippet']['channelId'])
+            
+            result[vidNo] = content
+            vidNo += 1
         return result
         
 # api = YoutubeAPI()
