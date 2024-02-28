@@ -36,6 +36,7 @@ class NotesGenerator:
         Include necessary terms and concepts mentioned in the video.
         Translate any non-English content into English.
            Ensure the total character count does not exceed 16,000 characters.
+           Ensure to use as many words as you can until you reach your limit.
      
         Additional Information:
 
