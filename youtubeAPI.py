@@ -29,7 +29,7 @@ class YoutubeAPI:
         return statistics_response
     def search(self):
         request = self.youtube.search().list(
-            q = self.query,
+            q = self.query + ' education ' + 'tutorial ' + 'lecture',
             part = 'snippet',
             maxResults = 20,
             type='video',
