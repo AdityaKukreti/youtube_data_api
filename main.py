@@ -19,8 +19,7 @@ def searchQuery():
 @app.route('/notes',methods = ['POST'])
 def generateNotes():
     videoId = request.get_json()['videoId']
-    notesAPI.videoId = videoId
-    return jsonify({"notes":notesAPI.generateNotes()})
+    return jsonify({"notes":notesAPI.generateNotes(videoId)})
 
 
 

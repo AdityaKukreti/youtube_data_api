@@ -1,5 +1,3 @@
-
-
 from youtube_transcript_api import YouTubeTranscriptApi
 from openai import OpenAI
 import os
@@ -10,18 +8,17 @@ import os
 class NotesGenerator:
 
     def __init__(self):
-        self.videoId = ""
-        self.transcription = ""
         self.client = OpenAI(api_key=os.environ['OPENAI_API_KEY'])
 
-    def getTranscription(self):
-        self.transcription = ""
-        for i in YouTubeTranscriptApi.get_transcript(self.videoId):
-            self.transcription += i['text'] + ' '
-        self.transcription.replace('\n',' ')
+    def getTranscription(self,videoId):
+        transcription = ""
+        for i in YouTubeTranscriptApi.get_transcript(videoId):
+            transcription += i['text'] + ' '
+        transcription.replace('\n',' ')
+        return transcription
 
-    def generateNotes(self):
-        self.getTranscription()
+    def generateNotes(self,videoId):
+        
         stream = self.client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
@@ -46,7 +43,7 @@ class NotesGenerator:
         Pay attention to terminology and ensure accurate translations.
         Aim for a extreme level of detail.
         '''},
-                {"role": "user", "content": self.transcription}],
+                {"role": "user", "content": self.getTranscription(videoId)}],
         stream=False,
         )
 
