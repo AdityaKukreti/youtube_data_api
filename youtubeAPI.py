@@ -6,7 +6,6 @@ class YoutubeAPI:
 
     def __init__(self):
         self.api_key = os.environ["YOUTUBE_API_KEY"]
-        # self.api_key = "AIzaSyBpWdaJZwqMe13uJ1IpIt_MWFwJfSj-Juw"
         self.youtube = build('youtube', 'v3', developerKey=self.api_key)
         self.query = ""
     
@@ -42,6 +41,7 @@ class YoutubeAPI:
            
             content = {}
             # if (i['id']['kind'] == "youtube#video"):
+            print(i + '\n\n\n')
             content['id'] = i['id']
             content['snippet'] = i['snippet']
             content['items'] = self.statistics(i['id']['videoId'])['items']
@@ -51,6 +51,4 @@ class YoutubeAPI:
             vidNo += 1
         return result
         
-# api = YoutubeAPI()
-# api.query = "abdul bari"
-# api.search()
+
