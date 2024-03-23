@@ -29,7 +29,7 @@ class YoutubeAPI:
     def search(self):
         request = self.youtube.search().list(
             q = self.query,
-            part = 'snippet,contentDetails',
+            part = 'snippet',
             maxResults = 20,
             type='video',
             videoCategoryId = '27'
