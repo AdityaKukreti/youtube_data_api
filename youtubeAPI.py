@@ -42,7 +42,7 @@ class YoutubeAPI:
             content = {}
             # if (i['id']['kind'] == "youtube#video"):
             title = i['snippet']['title']
-            description = i['snippet']['description']
+            description = i['snippet']['description'].lower()
             if ('tutorial' in title or 'tutorial' in description or 'lesson' in title or 'lesson' in description or 'learn' in title or 'learn' in description or 'educational' in title or 'educational' in description):
             
                 content['id'] = i['id']
