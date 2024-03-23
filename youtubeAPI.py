@@ -26,32 +26,77 @@ class YoutubeAPI:
         )
         statistics_response = statistics_request.execute()
         return statistics_response
+    # def search(self):
+    #     request = self.youtube.search().list(
+    #         q = self.query,
+    #         part = 'snippet,contentDetails',
+    #         maxResults = 20,
+    #         type='video',
+    #         videoCategoryId = '27'
+    #     )
+    #     response = request.execute()
+    #     result = {}
+    #     vidNo = 1
+    #     for i in response.get('items'):
+           
+    #         content = {}
+    #         # if (i['id']['kind'] == "youtube#video"):
+    #         title = i['snippet']['title'].lower()
+    #         description = i['snippet']['description'].lower()
+    #         if ('tutorial' in title or 'tutorial' in description or 'lesson' in title or 'lesson' in description or 'learn' in title or 'learn' in description or 'educational' in title or 'educational' in description):
+            
+    #             content['id'] = i['id']
+    #             content['snippet'] = i['snippet']
+    #             content['items'] = self.statistics(i['id']['videoId'])['items']
+    #             content['channel_thumbnail'] = self.get_channel_thumbnail(i['snippet']['channelId'])
+                
+    #             result[vidNo] = content
+    #             vidNo += 1
+    #     return result
     def search(self):
         request = self.youtube.search().list(
-            q = self.query,
-            part = 'snippet',
-            maxResults = 20,
+            q=self.query,
+            part='snippet,contentDetails',
+            maxResults=20,
             type='video',
-            videoCategoryId = '27'
+            videoCategoryId='27'
         )
         response = request.execute()
         result = {}
         vidNo = 1
-        for i in response.get('items'):
-           
+    
+        # First, get the video IDs from the search results
+        video_ids = []
+        for search_result in response.get('items', []):
+            if search_result['id']['kind'] == 'youtube#video':
+                video_ids.append(search_result['id']['videoId'])
+    
+        # Fetch the full video details, including the full description
+        video_details_response = self.youtube.videos().list(
+            id=','.join(video_ids),
+            part='snippet,contentDetails,statistics'
+        ).execute()
+    
+        # Process the video details
+        for video_detail in video_details_response.get('items', []):
             content = {}
-            # if (i['id']['kind'] == "youtube#video"):
-            title = i['snippet']['title'].lower()
-            description = i['snippet']['description'].lower()
-            if ('tutorial' in title or 'tutorial' in description or 'lesson' in title or 'lesson' in description or 'learn' in title or 'learn' in description or 'educational' in title or 'educational' in description):
-            
-                content['id'] = i['id']
-                content['snippet'] = i['snippet']
-                content['items'] = self.statistics(i['id']['videoId'])['items']
-                content['channel_thumbnail'] = self.get_channel_thumbnail(i['snippet']['channelId'])
-                
+            title = video_detail['snippet']['title'].lower()
+            description = video_detail['snippet']['description'].lower()
+    
+            # Overwrite the description with the full description from contentDetails
+            content['snippet'] = video_detail['snippet']
+            content['snippet']['description'] = video_detail['contentDetails']['description']
+    
+            if ('tutorial' in title or 'tutorial' in description or
+                'lesson' in title or 'lesson' in description or
+                'learn' in title or 'learn' in description or
+                'educational' in title or 'educational' in description):
+                content['id'] = video_detail['id']
+                content['items'] = video_detail['statistics']
+                content['channel_thumbnail'] = self.get_channel_thumbnail(video_detail['snippet']['channelId'])
                 result[vidNo] = content
                 vidNo += 1
+    
         return result
-        
+            
 
