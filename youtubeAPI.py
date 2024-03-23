@@ -41,7 +41,7 @@ class YoutubeAPI:
            
             content = {}
             # if (i['id']['kind'] == "youtube#video"):
-            print(i + '\n\n\n')
+            print(str(i) + '\n\n\n')
             content['id'] = i['id']
             content['snippet'] = i['snippet']
             content['items'] = self.statistics(i['id']['videoId'])['items']
