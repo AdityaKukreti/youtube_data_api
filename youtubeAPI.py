@@ -91,7 +91,6 @@ class YoutubeAPI:
                 print(content['snippet'])
                 print()
                 print(video_detail['contentDetails'])
-                break
             
             if ('tutorial' in title or 'tutorial' in description or
                 'lesson' in title or 'lesson' in description or
