@@ -88,6 +88,7 @@ class YoutubeAPI:
             # try:
             # content['snippet']['description'] = video_detail['contentDetails']['description']
             print(content['snippet']['description'])
+            break
             # except:
                 # print(content['snippet']['description'])
                 # print()
