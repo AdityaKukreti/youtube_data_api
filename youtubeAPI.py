@@ -90,7 +90,7 @@ class YoutubeAPI:
             except:
                 print(content['snippet'])
                 print()
-                print(video_detail['contentDetails'])
+                print(video_detail)
             
             if ('tutorial' in title or 'tutorial' in description or
                 'lesson' in title or 'lesson' in description or
