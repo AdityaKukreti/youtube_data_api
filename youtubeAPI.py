@@ -85,11 +85,11 @@ class YoutubeAPI:
     
             # Overwrite the description with the full description from contentDetails
             content['snippet'] = video_detail['snippet']
-            try:
-                content['snippet']['description'] = video_detail['contentDetails']['description']
-            except:
-                print(content['snippet']['description'])
-                print()
+            # try:
+            content['snippet']['description'] = video_detail['contentDetails']['description']
+            # except:
+                # print(content['snippet']['description'])
+                # print()
                 # print(video_detail)
             
             if ('tutorial' in title or 'tutorial' in description or
