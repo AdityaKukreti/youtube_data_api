@@ -163,7 +163,7 @@ class YoutubeAPI:
                 content['items'] = self.statistics(i['id']['videoId'])['items']
                 content['channel_thumbnail'] = self.get_channel_thumbnail(i['snippet']['channelId'])
                 print(title)
-                print(description)
+                print(i['snippet']['description'].lower())
                 print()
                 print()
                 print()
