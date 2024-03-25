@@ -151,18 +151,22 @@ class YoutubeAPI:
             # if (i['id']['kind'] == "youtube#video"):
             title = i['snippet']['title'].lower()
             description = i['snippet']['description'].lower()
-            print(title)
-            print(description)
-            print()
-            print()
-            print()
+            # print(title)
+            # print(description)
+            # print()
+            # print()
+            # print()
             if ('tutorial' in title or 'tutorial' in description or 'lesson' in title or 'lesson' in description or 'learn' in title or 'learn' in description or 'educational' in title or 'educational' in description):
             
                 content['id'] = i['id']
                 content['snippet'] = i['snippet']
                 content['items'] = self.statistics(i['id']['videoId'])['items']
                 content['channel_thumbnail'] = self.get_channel_thumbnail(i['snippet']['channelId'])
-                
+                print(title)
+                print(description)
+                print()
+                print()
+                print()
                 result[vidNo] = content
                 vidNo += 1
         return result
