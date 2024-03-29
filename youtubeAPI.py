@@ -1,4 +1,3 @@
-    
 from googleapiclient.discovery import build
 import os
 
@@ -10,7 +9,7 @@ class YoutubeAPI:
         self.youtube = build('youtube', 'v3', developerKey=self.api_key)
         self.query = ""
     
-    def get_channel_thumbnail(self,channel_id):
+    def getChannelThumbnail(self,channel_id):
         request = self.youtube.channels().list(
         part='snippet',
         id=channel_id
@@ -50,9 +49,57 @@ class YoutubeAPI:
                 content['id'] = i['id']
                 content['snippet'] = i['snippet']
                 content['items'] = self.statistics(i['id']['videoId'])['items']
-                content['channel_thumbnail'] = self.get_channel_thumbnail(i['snippet']['channelId'])
+                content['channel_thumbnail'] = self.getChannelThumbnail(i['snippet']['channelId'])
               
                 result[vidNo] = content
                 vidNo += 1
         return result
     
+    def getVideoDetails(self,videoId):
+        request = self.youtube.videos().list(
+            part='snippet,contentDetails,statistics',
+            id=videoId
+        )
+        response = request.execute()
+
+        video_details = response['items'][0]
+
+        snippet = video_details['snippet']
+        title = snippet['title']
+        description = snippet['description']
+        thumbnail_url = snippet['thumbnails']['default']['url']
+
+        content_details = video_details['contentDetails']
+        duration = content_details['duration']
+
+        statistics = video_details['statistics']
+        view_count = statistics['viewCount']
+        like_count = statistics.get('likeCount', 0)
+        dislike_count = statistics.get('dislikeCount', 0)
+        comment_count = statistics.get('commentCount', 0)
+
+        channel_id = snippet['channelId']
+        request = self.youtube.channels().list(
+            part='snippet',
+            id=channel_id
+        )
+        channel_response = request.execute()
+        channel_snippet = channel_response['items'][0]['snippet']
+        channel_title = channel_snippet['title']
+        channel_thumbnail_url = channel_snippet['thumbnails']['default']['url']
+
+        video_info = {
+            'title': title,
+            'description': description,
+            'thumbnail_url': thumbnail_url,
+            'duration': duration,
+            'view_count': view_count,
+            'like_count': like_count,
+            'dislike_count': dislike_count,
+            'comment_count': comment_count,
+            'channel_title': channel_title,
+            'channel_thumbnail_url': channel_thumbnail_url
+        }
+
+        return video_info
+
