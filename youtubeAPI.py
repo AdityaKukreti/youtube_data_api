@@ -30,7 +30,7 @@ class YoutubeAPI:
         request = self.youtube.search().list(
             q = self.query,
             part = 'snippet',
-            maxResults = 50,
+            maxResults = 100,
             type='video',
             # videoCategoryId = '28'
         )
