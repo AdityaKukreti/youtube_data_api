@@ -32,7 +32,7 @@ class YoutubeAPI:
             part = 'snippet',
             maxResults = 20,
             type='video',
-            videoCategoryId = '27'
+            videoCategoryId = '27,25,28,35'
         )
         response = request.execute()
         result = {}
