@@ -23,6 +23,14 @@ def generateNotes():
         return jsonify({"status":'true',"notes":notesAPI.generateNotes(videoId)})
     except:
         return jsonify({'status':'false'})
+    
+@app.route('/videoDetails', methods = ['POST'])
+def getVideoDetails():
+    videoId = request.get_json()['videoId']
+    try:
+        return jsonify({'status':'true','data':youtubeAPI.getVideoDetails(videoId)})
+    except:
+        return jsonify({'status':'false'})
 
 
 if __name__ == "__main__":
