@@ -50,4 +50,52 @@ class NotesGenerator:
         return stream.choices[0].message.content
 
     
+    def generateQuiz(self,videoId):
+        stream = self.client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role":"system", "content":'''Generate a multiple-choice quiz based on the provided video transcription. The quiz should consist of 10 questions. Each question should have a question statement and four multiple-choice options (labeled A, B, C, and D). Additionally, provide the correct answer for each question and a short explanation for the right answer.
 
+            Please format the output as JSON, with each question number as the key and its corresponding value containing the question statement, the four options, and the correct answer.
+
+            Example format:
+            {
+            "Question 1": {
+                "Question": "What was the main topic of the video?",
+                "Option A": "Technology",
+                "Option B": "Science",
+                "Option C": "History",
+                "Option D": "Art",
+                "Correct Answer": "A",
+                "Explanation": "Explanation for A being the correct answer"
+            },
+            "Question 2": {
+                "Question": "Who was the speaker in the video?",
+                "Option A": "John",
+                "Option B": "Emma",
+                "Option C": "Michael",
+                "Option D": "Sarah",
+                "Correct Answer": "C",
+                "Explanation": "Explanation for C being the correct answer"
+            },
+            ...
+            "Question 10": {
+                "Question": "What was the conclusion drawn in the video?",
+                "Option A": "A",
+                "Option B": "B",
+                "Option C": "C",
+                "Option D": "D",
+                "Correct Answer": "B",
+                "Explanation": "Explanation for B being the correct answer"
+            }
+            }
+
+            Please use the provided video transcription to generate relevant questions.
+
+        '''},
+                {"role": "user", "content": self.getTranscription(videoId)}],
+        stream=False,
+        )
+
+        return eval(stream.choices[0].message.content)
+    
