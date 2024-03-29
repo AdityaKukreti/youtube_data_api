@@ -55,29 +55,30 @@ class YoutubeAPI:
                 vidNo += 1
         return result
     
-    def getVideoDetails(self,videoId):
+    def getVideoDetails(self, videoId):
         request = self.youtube.videos().list(
             part='snippet,contentDetails,statistics',
             id=videoId
         )
         response = request.execute()
-
+    
         video_details = response['items'][0]
-
+    
         snippet = video_details['snippet']
         title = snippet['title']
         description = snippet['description']
         thumbnail_url = snippet['thumbnails']['default']['url']
-
+        published_at = snippet['publishedAt']  # New line to get published time
+    
         content_details = video_details['contentDetails']
         duration = content_details['duration']
-
+    
         statistics = video_details['statistics']
         view_count = statistics['viewCount']
         like_count = statistics.get('likeCount', 0)
         dislike_count = statistics.get('dislikeCount', 0)
         comment_count = statistics.get('commentCount', 0)
-
+    
         channel_id = snippet['channelId']
         request = self.youtube.channels().list(
             part='snippet',
@@ -87,7 +88,7 @@ class YoutubeAPI:
         channel_snippet = channel_response['items'][0]['snippet']
         channel_title = channel_snippet['title']
         channel_thumbnail_url = channel_snippet['thumbnails']['default']['url']
-
+    
         video_info = {
             'title': title,
             'description': description,
@@ -98,8 +99,10 @@ class YoutubeAPI:
             'dislike_count': dislike_count,
             'comment_count': comment_count,
             'channel_title': channel_title,
-            'channel_thumbnail_url': channel_thumbnail_url
+            'channel_thumbnail_url': channel_thumbnail_url,
+            'published_at': published_at  # Add published time to the dictionary
         }
-
+    
         return video_info
-
+    
+    
