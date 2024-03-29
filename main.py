@@ -31,6 +31,14 @@ def getVideoDetails():
         return jsonify({'status':'true','data':youtubeAPI.getVideoDetails(videoId)})
     except:
         return jsonify({'status':'false'})
+    
+@app.route('/generateQuiz', methods = ['POST'])
+def generateQuiz():
+    videoId = request.get_json()['videoId']
+    try:
+        return jsonify({'status':'true','data':notesAPI.generateQuiz(videoId)})
+    except:
+        return jsonify({'status':'false'})
 
 
 if __name__ == "__main__":
