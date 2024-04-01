@@ -44,7 +44,7 @@ class YoutubeAPI:
             title = i['snippet']['title'].lower()
             description = i['snippet']['description'].lower()
            
-            if (not ('sex' in title or 'sex' in description or 'orgasm' in title or 'orgasm' in description or 'intercourse' in title or 'intercourse' in description) and ('course' in title or 'course' in description or 'tutorial' in title or 'tutorial' in description or 'lesson' in title or 'lesson' in description or 'learn' in title or 'learn' in description or 'education' in title or 'education' in description or 'note' in title or 'note' in description)):
+            if (not ('nude' in title or 'nude' in description or 'sex' in title or 'sex' in description or 'orgasm' in title or 'orgasm' in description or 'intercourse' in title or 'intercourse' in description) and ('course' in title or 'course' in description or 'tutorial' in title or 'tutorial' in description or 'lesson' in title or 'lesson' in description or 'learn' in title or 'learn' in description or 'education' in title or 'education' in description or 'note' in title or 'note' in description)):
             
                 content['id'] = i['id']
                 content['snippet'] = i['snippet']
