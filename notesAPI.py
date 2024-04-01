@@ -134,6 +134,8 @@ class NotesGenerator:
             Provide a detailed summary of the video content.
             Use proper headings and subheadings to organize the notes.
             Add <h> and <s> before and after the heading and sub-headings respectively.
+            Omit using any other tag except for <h> and <s>.
+            You can add information from your end if you think the data is incomplete.
             Provide atleast 1 extremely detailed example for each topic.
             Include necessary terms and concepts mentioned in the video.
             Translate any non-English content into English.
@@ -160,13 +162,13 @@ class NotesGenerator:
             print(count)
             while (start < count):
                 end = 0
-                if (start + 10000 <= count):
-                    end = start + 10000
+                if (start + 5000 <= count):
+                    end = start + 5000
                 else:
                     end = count - start
                 print(start,end)
                 temp_transcription = ' '.join(transcription[start:end])
-                start += 10000
+                start += 5000
                 # stream = self.client.chat.completions.create(
                 # model="gpt-3.5-turbo",
                 # messages=[
