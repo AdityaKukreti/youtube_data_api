@@ -18,7 +18,7 @@ class NotesGenerator:
         return transcription
 
     def generateNotes(self,videoId):
-        
+        transcription = self.getTranscription(videoId)
         stream = self.client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
@@ -43,7 +43,7 @@ class NotesGenerator:
         Pay attention to terminology and ensure accurate translations.
         Aim for a extreme level of detail.
         '''},
-                {"role": "user", "content": self.getTranscription(videoId)}],
+                {"role": "user", "content": transcription}],
         stream=False,
         )
 
