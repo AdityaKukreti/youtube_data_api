@@ -19,6 +19,7 @@ class NotesGenerator:
 
     def generateNotes(self,videoId):
         transcription = self.getTranscription(videoId)
+        print(len(transcription.split()))
         stream = self.client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
