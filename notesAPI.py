@@ -250,4 +250,3 @@ class NotesGenerator:
         return eval(stream.choices[0].message.content)
     
 
-NotesGenerator().generateNotes('0euvEdPwQnQ')
