@@ -100,7 +100,6 @@
 
 #         return eval(stream.choices[0].message.content)
     
-
 from youtube_transcript_api import YouTubeTranscriptApi
 from openai import OpenAI
 import os
@@ -158,44 +157,74 @@ class NotesGenerator:
             notes = ""
             count = len(transcription.split())
             start = 0
+            print(count)
             while (start < count):
                 end = 0
                 if (start + 10000 <= count):
                     end = start + 10000
                 else:
                     end = count - start
+                print(start,end)
                 temp_transcription = ' '.join(transcription[start:end])
                 start += 10000
+                # stream = self.client.chat.completions.create(
+                # model="gpt-3.5-turbo",
+                # messages=[
+                #     {
+                #     "role": "system",
+                #     "content": '''Generate detailed notes from lengthy video transcriptions, ensuring contextual coherence.
+
+                # Instructions:
+
+                # 1. Produce comprehensive summaries reflecting the video's core content.
+                # 2. Organize notes using appropriate headings and subheadings.
+                # 3. Utilize <h> and <s> tags to delineate headings and subheadings respectively.
+                # 4. Provide at least one highly detailed example for each topic discussed.
+                # 5. Incorporate pertinent terms and concepts highlighted in the transcription.
+                # 6. Translate any non-English content into English for clarity.
+                # 7. Ensure the total character count does not surpass 16,000 characters.
+
+                # Additional Guidance:
+
+                # 1. Maintain clarity and coherence throughout the notes.
+                # 2. Utilize concise language, avoiding extraneous details.
+                # 3. Pay meticulous attention to terminology and ensure precise translations.
+                # 4. Strive for an exceptional level of detail.
+                # 5. Adapt to lengthy transcriptions, with a maximum length of 10,000 words.
+                # '''
+                # },
+                #         {"role": "user", "content": temp_transcription}],
+                # stream=False,
+                # )
+            
+                # notes += stream.choices[0].message.content + ' '
                 stream = self.client.chat.completions.create(
                 model="gpt-3.5-turbo",
                 messages=[
-                    {
-                    "role": "system",
-                    "content": '''Generate detailed notes from lengthy video transcriptions, ensuring contextual coherence.
+                    {"role":"system", "content":'''Task: Write detailed notes with necessary terms from video transcriptions, translating from any language to English, using proper headings and subheadings.
 
                 Instructions:
 
-                1. Produce comprehensive summaries reflecting the video's core content.
-                2. Organize notes using appropriate headings and subheadings.
-                3. Utilize <h> and <s> tags to delineate headings and subheadings respectively.
-                4. Provide at least one highly detailed example for each topic discussed.
-                5. Incorporate pertinent terms and concepts highlighted in the transcription.
-                6. Translate any non-English content into English for clarity.
-                7. Ensure the total character count does not surpass 16,000 characters.
+                Provide a detailed summary of the video content.
+                Use proper headings and subheadings to organize the notes.
+                Add <h> and <s> before and after the heading and sub-headings respectively.
+                Provide atleast 1 extremely detailed example for each topic.
+                Include necessary terms and concepts mentioned in the video.
+                Translate any non-English content into English.
+                Ensure the total character count does not exceed 16,000 characters.
+                
+            
+                Additional Information:
 
-                Additional Guidance:
-
-                1. Maintain clarity and coherence throughout the notes.
-                2. Utilize concise language, avoiding extraneous details.
-                3. Pay meticulous attention to terminology and ensure precise translations.
-                4. Strive for an exceptional level of detail.
-                5. Adapt to lengthy transcriptions, with a maximum length of 10,000 words.
-                '''
-                },
+                The notes should be comprehensive and cover all key points discussed in the video.
+                Maintain clarity and coherence throughout the document.
+                Use concise language and avoid unnecessary details.
+                Pay attention to terminology and ensure accurate translations.
+                Aim for a extreme level of detail.
+                '''},
                         {"role": "user", "content": temp_transcription}],
                 stream=False,
                 )
-            
                 notes += stream.choices[0].message.content + ' '
 
             return notes
@@ -249,4 +278,3 @@ class NotesGenerator:
 
         return eval(stream.choices[0].message.content)
     
-
