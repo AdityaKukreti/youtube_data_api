@@ -162,13 +162,13 @@ class NotesGenerator:
             print(count)
             while (start < count):
                 end = 0
-                if (start + 7500 <= count):
-                    end = start + 7500
+                if (start + 500 <= count):
+                    end = start + 500
                 else:
                     end = count - start
                 print(start,end)
                 temp_transcription = ' '.join(transcription[start:end])
-                start += 7500
+                start += 500
                 # stream = self.client.chat.completions.create(
                 # model="gpt-3.5-turbo",
                 # messages=[
