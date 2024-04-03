@@ -1,5 +1,6 @@
 from youtubeAPI import *
 from notesAPI import *
+from ocr import OCR
 from flask import Flask,jsonify,request
 import os
 
@@ -11,6 +12,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 youtubeAPI = YoutubeAPI()
 notesAPI = NotesGenerator()
+ocr = OCR()
 
 @app.route('/')
 def initialRoute():
@@ -48,7 +50,7 @@ def generateQuiz():
     
 
 
-@app.route('/upload', methods=['POST'])
+@app.route('/ocr', methods=['POST'])
 def upload_file():
     if 'file' not in request.files:
         return 'No file uploaded', 400
@@ -61,6 +63,10 @@ def upload_file():
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
     file.save(file_path)
 
-    return 'File uploaded successfully', 200
+
+
+    return ocr.detect_text(file_path)[0], 200
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
