@@ -65,7 +65,7 @@ def upload_file():
 
 
 
-    return ocr.detect_text(file_path)[0], 200
+    return jsonify({'text':ocr.detect_text(file_path)[0]}), 200
 
 
 if __name__ == "__main__":
