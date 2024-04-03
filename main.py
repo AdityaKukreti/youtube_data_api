@@ -1,7 +1,10 @@
 from youtubeAPI import *
 from notesAPI import *
 from flask import Flask,jsonify,request
+import os
 
+
+os.mkdir('uploads')
 UPLOAD_FOLDER = 'uploads/'
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
