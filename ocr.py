@@ -31,7 +31,3 @@ class OCR:
             )
         return ocr_text
 
-image_path = "Sample-Text-in-Paragraph-and-Essay-Level-Writing-Paragraph-and-Essay-Level-Writing.png"
-text = OCR().detect_text(image_path)
-
-print(text[0])
