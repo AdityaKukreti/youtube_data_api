@@ -292,13 +292,14 @@ Read the OCR text thoroughly to grasp its content.
 Provide a clear and concise interpretation of the text.
 Offer an explanation to aid understanding, providing any necessary context or background information.
 If the text poses a question, furnish the answer along with a brief elucidation to clarify its significance.
+Do make sure to use the correct symbols and signs if required.
 Example OCR Text:
 
 "Isaac Newton's law of universal gravitation states that every particle attracts every other particle in the universe with a force that is directly proportional to the product of their masses and inversely proportional to the square of the distance between their centers. F = G * (m1 * m2) / r^2."
 
 System Response:
 
-The OCR text discusses Isaac Newton's law of universal gravitation, which posits that all particles in the universe exert an attractive force on each other. This force is determined by the masses of the particles involved and the distance between them. The formula, F = G * (m1 * m2) / r^2, quantifies this relationship, where F represents the force of attraction, G is the gravitational constant, m1 and m2 are the masses of the two particles, and r is the distance between their centers.
+The image discusses Isaac Newton's law of universal gravitation, which posits that all particles in the universe exert an attractive force on each other. This force is determined by the masses of the particles involved and the distance between them. The formula, F = G * (m1 * m2) / r^2, quantifies this relationship, where F represents the force of attraction, G is the gravitational constant, m1 and m2 are the masses of the two particles, and r is the distance between their centers.
 
 Explanation:
 
