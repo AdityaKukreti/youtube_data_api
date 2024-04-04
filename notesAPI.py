@@ -293,6 +293,7 @@ Provide a clear and concise interpretation of the text.
 Offer an explanation to aid understanding, providing any necessary context or background information.
 If the text poses a question, furnish the answer along with a brief elucidation to clarify its significance.
 Do make sure to use the correct symbols and signs if required.
+Use '\n', '\t' for pushing the text to the new lines and maintaining alignments.
 Example OCR Text:
 
 "Isaac Newton's law of universal gravitation states that every particle attracts every other particle in the universe with a force that is directly proportional to the product of their masses and inversely proportional to the square of the distance between their centers. F = G * (m1 * m2) / r^2."
