@@ -309,4 +309,4 @@ Isaac Newton's law of universal gravitation is a fundamental principle in physic
         stream=False,
         )
 
-        return eval(stream.choices[0].message.content)
+        return stream.choices[0].message.content
