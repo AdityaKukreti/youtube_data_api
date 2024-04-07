@@ -50,23 +50,31 @@ def generateQuiz():
     
 
 
-@app.route('/ocr', methods=['POST'])
+@app.route('/chat', methods=['POST'])
 def upload_file():
-    if 'file' not in request.files:
-        return 'No file uploaded', 400
 
-    file = request.files['file']
+    ocr = ""
+    text = ""
+    if 'file' in request.files:
+        # File is uploaded
+        file = request.files['file']
 
-    if file.filename == '':
-        return 'No file selected', 400
+        if file.filename != '':
+            # If a file is provided, save it
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+            file.save(file_path)
+            ocr = ocr.detect_text(file_path)[0]
+       
 
-    file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-    file.save(file_path)
+    if 'text' in request.form:
+        # If text is provided in the form data, use it
+        text = request.form['text']
 
 
 
-    return jsonify({'text':notesAPI.getOCRAnswer(ocr.detect_text(file_path)[0])}), 200
+    # Process the combined text here
 
+    return jsonify({'text': processed_text}), 200
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
