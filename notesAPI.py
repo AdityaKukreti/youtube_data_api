@@ -280,34 +280,29 @@ class NotesGenerator:
 
         return eval(stream.choices[0].message.content)
 
-    def getOCRAnswer(self,text):
+    def getOCRAnswer(self,ocr,text):
         stream = self.client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
-            {"role":"system", "content":'''You've been provided with OCR text that requires analysis and explanation. Your task is to elucidate the meaning of the text and provide a brief explanation to aid comprehension. If the text presents a question, your response should include the answer along with a concise explanation.
+            {"role":"system", "content":'''Task: Act as an educational assistant, answering any doubts asked from you within the educational context only.
 
 Instructions:
 
-Read the OCR text thoroughly to grasp its content.
-Provide a clear and concise interpretation of the text.
-Offer an explanation to aid understanding, providing any necessary context or background information.
-If the text poses a question, furnish the answer along with a brief elucidation to clarify its significance.
-Do make sure to use the correct symbols and signs if required.
-Use '\n', '\t' for pushing the text to the new lines and maintaining alignments.
-Example OCR Text:
+Answer all queries within the scope of education and learning.
+Provide clear and concise explanations.
+Avoid discussing topics outside of the educational context.
+Ensure all responses are accurate and informative.
+Do not exceed the specified word limit for each response.
+# If OCR text provided, then answer according to the User text provided.
+Additional Information:
 
-"Isaac Newton's law of universal gravitation states that every particle attracts every other particle in the universe with a force that is directly proportional to the product of their masses and inversely proportional to the square of the distance between their centers. F = G * (m1 * m2) / r^2."
-
-System Response:
-
-The image discusses Isaac Newton's law of universal gravitation, which posits that all particles in the universe exert an attractive force on each other. This force is determined by the masses of the particles involved and the distance between them. The formula, F = G * (m1 * m2) / r^2, quantifies this relationship, where F represents the force of attraction, G is the gravitational constant, m1 and m2 are the masses of the two particles, and r is the distance between their centers.
-
-Explanation:
-
-Isaac Newton's law of universal gravitation is a fundamental principle in physics, describing the force of attraction between objects due to gravity. It elucidates why objects fall to the ground, why the Moon orbits the Earth, and why planets revolve around the Sun. The law has profound implications for understanding celestial mechanics and has paved the way for advancements in fields such as astronomy and space exploration.
-
-        '''},
-                {"role": "user", "content": text}],
+Focus solely on providing assistance related to educational queries.
+Maintain a professional and helpful tone in all responses.
+Prioritize accuracy and relevance in your answers.
+Engage with users in a respectful manner.
+Always verify information before providing an answer.'''},
+                {"role": "user", "content": """OCR text: {ocr}
+                "User text": {text}"""}],
         stream=False,
         )
 
