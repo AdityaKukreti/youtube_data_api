@@ -49,33 +49,30 @@ def generateQuiz():
         return jsonify({'status':'false'})
     
 
+@app.route('/ocr', methods=['POST'])
+def upload_file():
+    if 'file' not in request.files:
+        return 'No file uploaded', 400
+
+    file = request.files['file']
+
+    if file.filename == '':
+        return 'No file selected', 400
+
+    file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+    file.save(file_path)
+
+
+
+    return ocr.detect_text(file_path)[0], 200
+
 
 @app.route('/chat', methods=['POST'])
 def upload_file():
 
-    print(request.get_json())
-
-    ocrText = ""
-    userText = ""
-    if 'file' in request.files:
-        # File is uploaded
-        file = request.files['file']
-        print(file.filename)
-
-        if file.filename != '':
-            # If a file is provided, save it
-            file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-            file.save(file_path)
-            ocrText = ocr.detect_text(file_path)[0]
-       
-
-    if 'text' in request.form:
-        # If text is provided in the form data, use it
-        userText = request.form['text']
-
-    print(userText,ocrText)
-
-    # Process the combined text here
+    data = request.get_json()
+    ocrText = data['ocr']
+    userText = data['text']
 
     return jsonify({'text': notesAPI.getOCRAnswer(ocrText,userText)}), 200
 
