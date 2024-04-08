@@ -74,7 +74,7 @@ def upload_file():
 
     # Process the combined text here
 
-    return jsonify({'text': processed_text}), 200
+    return jsonify({'text': notesAPI.getOCRAnswer(ocr,text)}), 200
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
