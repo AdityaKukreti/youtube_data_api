@@ -53,6 +53,8 @@ def generateQuiz():
 @app.route('/chat', methods=['POST'])
 def upload_file():
 
+    print(request.get_json())
+
     ocrText = ""
     userText = ""
     if 'file' in request.files:
@@ -70,7 +72,7 @@ def upload_file():
         # If text is provided in the form data, use it
         userText = request.form['text']
 
-
+    print(userText,ocrText)
 
     # Process the combined text here
 
