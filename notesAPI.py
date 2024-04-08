@@ -301,7 +301,7 @@ Maintain a professional and helpful tone in all responses.
 Prioritize accuracy and relevance in your answers.
 Engage with users in a respectful manner.
 Always verify information before providing an answer.'''},
-                {"role": "user", "content": """OCR text: {ocr}
+                {"role": "user", "content": f"""OCR text: {ocr}
                 "User text": {text}"""}],
         stream=False,
         )
