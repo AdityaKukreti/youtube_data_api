@@ -68,7 +68,7 @@ def upload_file():
 
 
 @app.route('/chat', methods=['POST'])
-def upload_file():
+def getChatReply():
 
     data = request.get_json()
     ocrText = data['ocr']
