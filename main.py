@@ -60,6 +60,7 @@ def upload_file():
     if 'file' in request.files:
         # File is uploaded
         file = request.files['file']
+        print(file.filename)
 
         if file.filename != '':
             # If a file is provided, save it
