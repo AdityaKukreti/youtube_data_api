@@ -53,8 +53,8 @@ def generateQuiz():
 @app.route('/chat', methods=['POST'])
 def upload_file():
 
-    ocr = ""
-    text = ""
+    ocrText = ""
+    userText = ""
     if 'file' in request.files:
         # File is uploaded
         file = request.files['file']
@@ -63,18 +63,18 @@ def upload_file():
             # If a file is provided, save it
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
             file.save(file_path)
-            ocr = ocr.detect_text(file_path)[0]
+            ocrText = ocr.detect_text(file_path)[0]
        
 
     if 'text' in request.form:
         # If text is provided in the form data, use it
-        text = request.form['text']
+        userText = request.form['text']
 
 
 
     # Process the combined text here
 
-    return jsonify({'text': notesAPI.getOCRAnswer(ocr,text)}), 200
+    return jsonify({'text': notesAPI.getOCRAnswer(ocrText,userText)}), 200
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
