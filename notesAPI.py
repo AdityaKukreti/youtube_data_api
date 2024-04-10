@@ -198,7 +198,7 @@ class NotesGenerator:
                 )
             notes += stream.choices[0].message.content + ' '
 
-            return notes
+        return notes
     
     def generateQuiz(self,videoId):
         stream = self.client.chat.completions.create(
