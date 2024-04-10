@@ -26,9 +26,11 @@ def searchQuery():
 
 @app.route('/notes',methods = ['POST'])
 def generateNotes():
-    videoId = request.get_json()['videoId']
+    data = request.get_json()
+    videoId = data['videoId']
+    level = data['difficulty']
     try:
-        return jsonify({"status":'true',"notes":notesAPI.generateNotes(videoId)})
+        return jsonify({"status":'true',"notes":notesAPI.generateNotes(videoId,level)})
     except:
         return jsonify({'status':'false'})
     
