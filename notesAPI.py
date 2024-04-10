@@ -111,6 +111,7 @@ class NotesGenerator:
 
     def __init__(self):
         self.client = OpenAI(api_key=os.environ['OPENAI_API_KEY'])
+        self.levels = {"brief":10000,"descriptive":5000,"detialed":1000}
 
     def getTranscription(self,videoId):
         transcription = ""
@@ -119,56 +120,24 @@ class NotesGenerator:
         transcription.replace('\n',' ')
         return transcription
 
-    def generateNotes(self,videoId):
+    def generateNotes(self,videoId,level):
         transcription = self.getTranscription(videoId)
         
         
-        try:
-            stream = self.client.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role":"system", "content":'''Task: Write detailed notes with necessary terms from video transcriptions, translating from any language to English, using proper headings and subheadings.
-
-            Instructions:
-
-            Provide a detailed summary of the video content.
-            Use proper headings and subheadings to organize the notes.
-            Add <h> and <s> before and after the heading and sub-headings respectively.
-            Omit using any other tag except for <h> and <s>.
-            You can add information from your end if you think the data is incomplete.
-            Provide atleast 1 extremely detailed example for each topic.
-            Include necessary terms and concepts mentioned in the video.
-            Translate any non-English content into English.
-            Ensure the total character count does not exceed 16,000 characters.
-            
         
-            Additional Information:
-
-            The notes should be comprehensive and cover all key points discussed in the video.
-            Maintain clarity and coherence throughout the document.
-            Use concise language and avoid unnecessary details.
-            Pay attention to terminology and ensure accurate translations.
-            Aim for a extreme level of detail.
-            '''},
-                    {"role": "user", "content": transcription}],
-            stream=False,
-            )
-
-            return stream.choices[0].message.content
-        except:
-            notes = ""
-            count = len(transcription.split())
-            start = 0
-            print(count)
-            while (start < count):
-                end = 0
-                if (start + 500 <= count):
-                    end = start + 500
-                else:
-                    end = count - start
+        notes = ""
+        count = len(transcription.split())
+        start = 0
+        
+        while (start < count):
+            end = 0
+            if (start + self.levels[level] <= count):
+                end = start + self.levels[level]
+            else:
+                end = count - start
                 print(start,end)
-                temp_transcription = ' '.join(transcription[start:end])
-                start += 500
+            temp_transcription = ' '.join(transcription[start:end])
+            start += self.levels[level]
                 # stream = self.client.chat.completions.create(
                 # model="gpt-3.5-turbo",
                 # messages=[
@@ -200,7 +169,7 @@ class NotesGenerator:
                 # )
             
                 # notes += stream.choices[0].message.content + ' '
-                stream = self.client.chat.completions.create(
+            stream = self.client.chat.completions.create(
                 model="gpt-3.5-turbo",
                 messages=[
                     {"role":"system", "content":'''Task: Write detailed notes with necessary terms from video transcriptions, translating from any language to English, using proper headings and subheadings.
