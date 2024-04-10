@@ -196,7 +196,7 @@ class NotesGenerator:
                         {"role": "user", "content": temp_transcription}],
                 stream=False,
                 )
-                notes += stream.choices[0].message.content + ' '
+            notes += stream.choices[0].message.content + ' '
 
             return notes
     
