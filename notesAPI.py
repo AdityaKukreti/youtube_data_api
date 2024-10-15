@@ -37,37 +37,7 @@ class NotesGenerator:
                 print(start,end)
             temp_transcription = ' '.join(transcription[start:end])
             start += self.levels[level]
-                # stream = self.client.chat.completions.create(
-                # model="gpt-3.5-turbo",
-                # messages=[
-                #     {
-                #     "role": "system",
-                #     "content": '''Generate detailed notes from lengthy video transcriptions, ensuring contextual coherence.
-
-                # Instructions:
-
-                # 1. Produce comprehensive summaries reflecting the video's core content.
-                # 2. Organize notes using appropriate headings and subheadings.
-                # 3. Utilize <h> and <s> tags to delineate headings and subheadings respectively.
-                # 4. Provide at least one highly detailed example for each topic discussed.
-                # 5. Incorporate pertinent terms and concepts highlighted in the transcription.
-                # 6. Translate any non-English content into English for clarity.
-                # 7. Ensure the total character count does not surpass 16,000 characters.
-
-                # Additional Guidance:
-
-                # 1. Maintain clarity and coherence throughout the notes.
-                # 2. Utilize concise language, avoiding extraneous details.
-                # 3. Pay meticulous attention to terminology and ensure precise translations.
-                # 4. Strive for an exceptional level of detail.
-                # 5. Adapt to lengthy transcriptions, with a maximum length of 10,000 words.
-                # '''
-                # },
-                #         {"role": "user", "content": temp_transcription}],
-                # stream=False,
-                # )
-            
-                # notes += stream.choices[0].message.content + ' '
+               
             stream = self.client.chat.completions.create(
                 model="gpt-3.5-turbo",
                 messages=[
